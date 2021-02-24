@@ -1,0 +1,2297 @@
+{
+	"info": {
+		"_postman_id": "7d1439ef-af75-4c2c-8250-107cf48d9f1e",
+		"name": "AdTests",
+		"description": "Tests ad functionality.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Delete: /ads (all ads - empty database)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "46644122-3ac2-4900-be47-26d152f12339",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Body matches string\", function () {",
+							"    pm.response.to.have.body(\"Successfully deleted all ads.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						""
+					]
+				},
+				"description": "Deletes all ads from the database for testing purposes."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads (Check database is empty)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "416096e6-104b-45b3-9ae3-01f2a7cb5e5e",
+						"exec": [
+							"pm.test(\"Status: Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Test: No ads found error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorCode).to.eql(\"notFound\");",
+							"});",
+							"pm.test(\"Test: Database contains 0 ads error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorMsg).to.eql(\"No ads currently exist in the database.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Checks if database is empty."
+			},
+			"response": []
+		},
+		{
+			"name": "Post: /ads/test_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "957f312b-ff6a-447a-966b-71cf8a0fbe9c",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"test_1\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"header\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.header).to.eql(\"test_1_header\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"subheader\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.subheader).to.eql(\"test_1_subheader\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link).to.eql(\"test_1_website.org\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_text\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_text).to.eql(\"test_1_link_text\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_target_location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_target_location).to.eql(\"test_1_link_target_location\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"color_scheme\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.color_scheme).to.eql(\"test_1_color\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"start\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.start).to.eql(\"2014-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"end\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.end).to.eql(\"2018-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"campaign\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.campaign).to.eql(\"test_1_campaign\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"test_1_location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "test_1",
+							"type": "text"
+						},
+						{
+							"key": "header",
+							"value": "test_1_header",
+							"type": "text"
+						},
+						{
+							"key": "subheader",
+							"value": "test_1_subheader",
+							"type": "text"
+						},
+						{
+							"key": "link",
+							"value": "test_1_website.org",
+							"type": "text"
+						},
+						{
+							"key": "link_text",
+							"value": "test_1_link_text",
+							"type": "text"
+						},
+						{
+							"key": "link_target_location",
+							"value": "test_1_link_target_location",
+							"type": "text"
+						},
+						{
+							"key": "color_scheme",
+							"value": "test_1_color",
+							"type": "text"
+						},
+						{
+							"key": "start",
+							"value": "2014-01-01T23:28:56.782Z",
+							"type": "text"
+						},
+						{
+							"key": "end",
+							"value": "2018-01-01T23:28:56.782Z",
+							"type": "text"
+						},
+						{
+							"key": "campaign",
+							"value": "test_1_campaign",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "test_1_location",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Posts a new ad (test_1) to the database. Checks if the values for the ad are correct."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete: /ad/test_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b8ef639-ccd5-46f6-980a-0c2b09ff04fe",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Body matches string\", function () {",
+							"    pm.response.to.have.body(\"Successfully deleted the corresponding ad.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/test_1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"test_1"
+					]
+				},
+				"description": "Deletes an ad (test_1) from the database."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads (Check database is empty)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b528257b-5be6-4848-8dbd-67e553a691fa",
+						"exec": [
+							"pm.test(\"Status: Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Test: No ads foun error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorCode).to.eql(\"notFound\");",
+							"});",
+							"pm.test(\"Test: Database contains 0 ads error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorMsg).to.eql(\"No ads currently exist in the database.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Checks if database is empty."
+			},
+			"response": []
+		},
+		{
+			"name": "Post: /ads/test_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1c43559-3dc7-41d9-97f0-fc754f012ee3",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"test_2\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"header\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.header).to.eql(\"test_2_header\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"subheader\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.subheader).to.eql(\"test_2_subheader\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link).to.eql(\"test_2_website.org\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_text\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_text).to.eql(\"test_2_link_text\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_target_location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_target_location).to.eql(\"test_2_link_target_location\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"color_scheme\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.color_scheme).to.eql(\"test_2_color\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"start\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.start).to.eql(\"2014-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"end\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.end).to.eql(\"2018-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"campaign\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.campaign).to.eql(\"test_2_campaign\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"test_2_location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "test_2",
+							"type": "text"
+						},
+						{
+							"key": "header",
+							"value": "test_2_header",
+							"type": "text"
+						},
+						{
+							"key": "subheader",
+							"value": "test_2_subheader",
+							"type": "text"
+						},
+						{
+							"key": "link",
+							"value": "test_2_website.org",
+							"type": "text"
+						},
+						{
+							"key": "link_text",
+							"value": "test_2_link_text",
+							"type": "text"
+						},
+						{
+							"key": "link_target_location",
+							"value": "test_2_link_target_location",
+							"type": "text"
+						},
+						{
+							"key": "color_scheme",
+							"value": "test_2_color",
+							"type": "text"
+						},
+						{
+							"key": "start",
+							"value": "2014-01-01T23:28:56.782Z",
+							"type": "text"
+						},
+						{
+							"key": "end",
+							"value": "2018-01-01T23:28:56.782Z",
+							"type": "text"
+						},
+						{
+							"key": "campaign",
+							"value": "test_2_campaign",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "test_2_location",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Posts a new ad (test_2) to the database. Checks if the values for the ad are correct."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads/test_2 (Check body correctness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7400183c-7122-4d28-90a0-801cb5a66e82",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"test_2\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"header\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.header).to.eql(\"test_2_header\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"subheader\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.subheader).to.eql(\"test_2_subheader\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link).to.eql(\"test_2_website.org\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_text\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_text).to.eql(\"test_2_link_text\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_target_location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_target_location).to.eql(\"test_2_link_target_location\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"color_scheme\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.color_scheme).to.eql(\"test_2_color\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"start\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.start).to.eql(\"2014-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"end\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.end).to.eql(\"2018-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"campaign\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.campaign).to.eql(\"test_2_campaign\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"test_2_location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/test_2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"test_2"
+					]
+				},
+				"description": "Gets an ad (test_2) from the database. Checks if the values for the ad are correct."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete: /ads/test_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c599b8c3-90f6-4102-b8b0-db5ca7c65678",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Body matches string\", function () {",
+							"    pm.response.to.have.body(\"Successfully deleted the corresponding ad.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/test_2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"test_2"
+					]
+				},
+				"description": "Deletes an ad (test_2) from the database."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads (Check database is empty)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b528257b-5be6-4848-8dbd-67e553a691fa",
+						"exec": [
+							"pm.test(\"Status: Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Test: No ads found error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorCode).to.eql(\"notFound\");",
+							"});",
+							"pm.test(\"Test: Database contains 0 ads error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorMsg).to.eql(\"No ads currently exist in the database.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Checks if database is empty."
+			},
+			"response": []
+		},
+		{
+			"name": "Post: /ads/test_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1c43559-3dc7-41d9-97f0-fc754f012ee3",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"test_3\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"header\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.header).to.eql(\"test_3_header\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"subheader\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.subheader).to.eql(\"test_3_subheader\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link).to.eql(\"test_3_website.com\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_text\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_text).to.eql(\"test_3_link_text\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_target_location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_target_location).to.eql(\"test_3_link_target_location\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"color_scheme\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.color_scheme).to.eql(\"test_3_color\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"start\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.start).to.eql(\"2015-01-01T22:30:00.000Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"end\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.end).to.eql(\"2016-10-15T22:30:00.000Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"campaign\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.campaign).to.eql(\"test_3_campaign\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"test_3_location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "test_3",
+							"type": "text"
+						},
+						{
+							"key": "header",
+							"value": "test_3_header",
+							"type": "text"
+						},
+						{
+							"key": "subheader",
+							"value": "test_3_subheader",
+							"type": "text"
+						},
+						{
+							"key": "link",
+							"value": "test_3_website.com",
+							"type": "text"
+						},
+						{
+							"key": "link_text",
+							"value": "test_3_link_text",
+							"type": "text"
+						},
+						{
+							"key": "link_target_location",
+							"value": "test_3_link_target_location",
+							"type": "text"
+						},
+						{
+							"key": "color_scheme",
+							"value": "test_3_color",
+							"type": "text"
+						},
+						{
+							"key": "start",
+							"value": "2015-01-01T22:30:00.000Z",
+							"type": "text"
+						},
+						{
+							"key": "end",
+							"value": "2016-10-15T22:30:00.000Z",
+							"type": "text"
+						},
+						{
+							"key": "campaign",
+							"value": "test_3_campaign",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "test_3_location",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Posts an ad (test_3) to the database. Checks if the values for the ad are correct."
+			},
+			"response": []
+		},
+		{
+			"name": "Post: /ads/test_3 (Duplicate error check)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1c43559-3dc7-41d9-97f0-fc754f012ee3",
+						"exec": [
+							"pm.test(\"Status: Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Test: Check for \\\"badRequest\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorCode).to.eql(\"badRequest\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"MongoError\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorMsg.name).to.eql(\"MongoError\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorMsg.keyValue.name).to.eql(\"test_3\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "test_3",
+							"type": "text"
+						},
+						{
+							"key": "header",
+							"value": "test_3_header",
+							"type": "text"
+						},
+						{
+							"key": "subheader",
+							"value": "test_3_subheader",
+							"type": "text"
+						},
+						{
+							"key": "link",
+							"value": "test_3_website.com",
+							"type": "text"
+						},
+						{
+							"key": "link_text",
+							"value": "test_3_link_text",
+							"type": "text"
+						},
+						{
+							"key": "link_target_location",
+							"value": "test_3_link_target_location",
+							"type": "text"
+						},
+						{
+							"key": "color_scheme",
+							"value": "test_3_color",
+							"type": "text"
+						},
+						{
+							"key": "start",
+							"value": "2015-01-01T22:30:00.000Z",
+							"type": "text"
+						},
+						{
+							"key": "end",
+							"value": "2016-10-15T22:30:00.000Z",
+							"type": "text"
+						},
+						{
+							"key": "campaign",
+							"value": "test_3_campaign",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "test_3_location",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Posts a duplicate ad (test_3) to the database. Checks for an error return message."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads/test_3 (Check body correctness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7400183c-7122-4d28-90a0-801cb5a66e82",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"test_3\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"header\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.header).to.eql(\"test_3_header\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"subheader\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.subheader).to.eql(\"test_3_subheader\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link).to.eql(\"test_3_website.com\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_text\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_text).to.eql(\"test_3_link_text\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_target_location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_target_location).to.eql(\"test_3_link_target_location\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"color_scheme\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.color_scheme).to.eql(\"test_3_color\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"start\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.start).to.eql(\"2015-01-01T22:30:00.000Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"end\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.end).to.eql(\"2016-10-15T22:30:00.000Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"campaign\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.campaign).to.eql(\"test_3_campaign\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"test_3_location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/test_3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"test_3"
+					]
+				},
+				"description": "Gets an ad (test_3) from the database. Checks if the values for the ad are correct."
+			},
+			"response": []
+		},
+		{
+			"name": "Put: /ads/test_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c38bf59-4f2d-4f49-bf2a-6524f20a47b5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"test_3\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"header\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.header).to.eql(\"new_test_3_header\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"subheader\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.subheader).to.eql(\"new_test_3_subheader\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link).to.eql(\"new_test_3_website.com\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_text\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_text).to.eql(\"new_test_3_link_text\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_target_location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_target_location).to.eql(\"new_test_3_link_target_location\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"color_scheme\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.color_scheme).to.eql(\"new_test_3_color\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"start\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.start).to.eql(\"2014-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"end\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.end).to.eql(\"2018-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"campaign\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.campaign).to.eql(\"new_test_3_campaign\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"new_test_3_location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "test_3",
+							"type": "text"
+						},
+						{
+							"key": "header",
+							"value": "new_test_3_header",
+							"type": "text"
+						},
+						{
+							"key": "subheader",
+							"value": "new_test_3_subheader",
+							"type": "text"
+						},
+						{
+							"key": "link",
+							"value": "new_test_3_website.com",
+							"type": "text"
+						},
+						{
+							"key": "link_text",
+							"value": "new_test_3_link_text",
+							"type": "text"
+						},
+						{
+							"key": "link_target_location",
+							"value": "new_test_3_link_target_location",
+							"type": "text"
+						},
+						{
+							"key": "color_scheme",
+							"value": "new_test_3_color",
+							"type": "text"
+						},
+						{
+							"key": "start",
+							"value": "2014-01-01T23:28:56.782Z",
+							"type": "text"
+						},
+						{
+							"key": "end",
+							"value": "2018-01-01T23:28:56.782Z",
+							"type": "text"
+						},
+						{
+							"key": "campaign",
+							"value": "new_test_3_campaign",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "new_test_3_location",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/test_3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"test_3"
+					]
+				},
+				"description": "Puts an update for an ad (test_3) to the database. Checks if the values for the updated ad are correct."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads/test_3 (Check body correctness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7400183c-7122-4d28-90a0-801cb5a66e82",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"test_3\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"header\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.header).to.eql(\"new_test_3_header\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"subheader\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.subheader).to.eql(\"new_test_3_subheader\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link).to.eql(\"new_test_3_website.com\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_text\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_text).to.eql(\"new_test_3_link_text\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_target_location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_target_location).to.eql(\"new_test_3_link_target_location\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"color_scheme\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.color_scheme).to.eql(\"new_test_3_color\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"start\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.start).to.eql(\"2014-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"end\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.end).to.eql(\"2018-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"campaign\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.campaign).to.eql(\"new_test_3_campaign\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"new_test_3_location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/test_3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"test_3"
+					]
+				},
+				"description": "Gets an updated ad (test_3) from the database. Checks if the values for the updated ad are correct."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads (Checks number of ads)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b528257b-5be6-4848-8dbd-67e553a691fa",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Database contains only 1 ad\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Checks if database has only one ad (only the updated ad; no duplication errors when updating an ad)."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete: /ads/test_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c599b8c3-90f6-4102-b8b0-db5ca7c65678",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Body matches string\", function () {",
+							"    pm.response.to.have.body(\"Successfully deleted the corresponding ad.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/test_3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"test_3"
+					]
+				},
+				"description": "Deletes an ad (test_3) from the database."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads (Check database is empty) Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b528257b-5be6-4848-8dbd-67e553a691fa",
+						"exec": [
+							"pm.test(\"Status: Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Test: No ads found error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorCode).to.eql(\"notFound\");",
+							"});",
+							"pm.test(\"Test: Database contains 0 ads error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorMsg).to.eql(\"No ads currently exist in the database.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Checks if database is empty."
+			},
+			"response": []
+		},
+		{
+			"name": "Post: /ads/test_4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1c43559-3dc7-41d9-97f0-fc754f012ee3",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"test_4\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"header\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.header).to.eql(\"test_4_header\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"subheader\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.subheader).to.eql(\"test_4_subheader\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link).to.eql(\"test_4_website.com\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_text\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_text).to.eql(\"test_4_link_text\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_target_location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_target_location).to.eql(\"test_4_link_target_location\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"color_scheme\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.color_scheme).to.eql(\"test_4_color\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"start\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.start).to.eql(\"2015-01-01T22:30:00.000Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"end\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.end).to.eql(\"2016-10-15T22:30:00.000Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"campaign\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.campaign).to.eql(\"test_4_campaign\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"test_4_location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "test_4",
+							"type": "text"
+						},
+						{
+							"key": "header",
+							"value": "test_4_header",
+							"type": "text"
+						},
+						{
+							"key": "subheader",
+							"value": "test_4_subheader",
+							"type": "text"
+						},
+						{
+							"key": "link",
+							"value": "test_4_website.com",
+							"type": "text"
+						},
+						{
+							"key": "link_text",
+							"value": "test_4_link_text",
+							"type": "text"
+						},
+						{
+							"key": "link_target_location",
+							"value": "test_4_link_target_location",
+							"type": "text"
+						},
+						{
+							"key": "color_scheme",
+							"value": "test_4_color",
+							"type": "text"
+						},
+						{
+							"key": "start",
+							"value": "2015-01-01T22:30:00.000Z",
+							"type": "text"
+						},
+						{
+							"key": "end",
+							"value": "2016-10-15T22:30:00.000Z",
+							"type": "text"
+						},
+						{
+							"key": "campaign",
+							"value": "test_4_campaign",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "test_4_location",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Posts an ad (test_4) to the database. Checks if the values for the ad are correct."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads/test_4 (Check body correctness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7400183c-7122-4d28-90a0-801cb5a66e82",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"test_4\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"header\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.header).to.eql(\"test_4_header\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"subheader\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.subheader).to.eql(\"test_4_subheader\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link).to.eql(\"test_4_website.com\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_text\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_text).to.eql(\"test_4_link_text\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_target_location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_target_location).to.eql(\"test_4_link_target_location\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"color_scheme\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.color_scheme).to.eql(\"test_4_color\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"start\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.start).to.eql(\"2015-01-01T22:30:00.000Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"end\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.end).to.eql(\"2016-10-15T22:30:00.000Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"campaign\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.campaign).to.eql(\"test_4_campaign\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"test_4_location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/test_4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"test_4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put: /ads/test_4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c38bf59-4f2d-4f49-bf2a-6524f20a47b5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"new_test_4\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"header\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.header).to.eql(\"new_test_4_header\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"subheader\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.subheader).to.eql(\"new_test_4_subheader\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link).to.eql(\"new_test_4_website.com\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_text\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_text).to.eql(\"new_test_4_link_text\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_target_location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_target_location).to.eql(\"new_test_4_link_target_location\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"color_scheme\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.color_scheme).to.eql(\"new_test_4_color\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"start\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.start).to.eql(\"2014-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"end\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.end).to.eql(\"2018-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"campaign\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.campaign).to.eql(\"new_test_4_campaign\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"new_test_4_location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "new_test_4",
+							"type": "text"
+						},
+						{
+							"key": "header",
+							"value": "new_test_4_header",
+							"type": "text"
+						},
+						{
+							"key": "subheader",
+							"value": "new_test_4_subheader",
+							"type": "text"
+						},
+						{
+							"key": "link",
+							"value": "new_test_4_website.com",
+							"type": "text"
+						},
+						{
+							"key": "link_text",
+							"value": "new_test_4_link_text",
+							"type": "text"
+						},
+						{
+							"key": "link_target_location",
+							"value": "new_test_4_link_target_location",
+							"type": "text"
+						},
+						{
+							"key": "color_scheme",
+							"value": "new_test_4_color",
+							"type": "text"
+						},
+						{
+							"key": "start",
+							"value": "2014-01-01T23:28:56.782Z",
+							"type": "text"
+						},
+						{
+							"key": "end",
+							"value": "2018-01-01T23:28:56.782Z",
+							"type": "text"
+						},
+						{
+							"key": "campaign",
+							"value": "new_test_4_campaign",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "new_test_4_location",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/test_4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"test_4"
+					]
+				},
+				"description": "Puts an update for an ad (test_4) to the database. Checks if the values for the updated ad are correct. The ad name has also been updated, so accessing the ad has also changed (new_test_4)."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads/test_4 (Updating ad error)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7400183c-7122-4d28-90a0-801cb5a66e82",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/test_4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"test_4"
+					]
+				},
+				"description": "Attempts to get an ad (test_4) from the database. Checks for an error sicne the ad name has been updated and is no longer accessible."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads/new_test_4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7400183c-7122-4d28-90a0-801cb5a66e82",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Check for \\\"name\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"new_test_4\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"header\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.header).to.eql(\"new_test_4_header\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"subheader\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.subheader).to.eql(\"new_test_4_subheader\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link).to.eql(\"new_test_4_website.com\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_text\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_text).to.eql(\"new_test_4_link_text\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"link_target_location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.link_target_location).to.eql(\"new_test_4_link_target_location\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"color_scheme\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.color_scheme).to.eql(\"new_test_4_color\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"start\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.start).to.eql(\"2014-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"end\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.end).to.eql(\"2018-01-01T23:28:56.782Z\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"campaign\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.campaign).to.eql(\"new_test_4_campaign\");",
+							"});",
+							"pm.test(\"Test: Check for \\\"location\\\"\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.eql(\"new_test_4_location\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/new_test_4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"new_test_4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads (Checks number of ads)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b528257b-5be6-4848-8dbd-67e553a691fa",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Database contains only 1 ad\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Checks if database has only one ad (only the updated ad; no duplication errors when updating an ad)."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete: /ads/new_test_4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c599b8c3-90f6-4102-b8b0-db5ca7c65678",
+						"exec": [
+							"pm.test(\"Status: Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Test: Body matches string\", function () {",
+							"    pm.response.to.have.body(\"Successfully deleted the corresponding ad.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads/new_test_4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads",
+						"new_test_4"
+					]
+				},
+				"description": "Deletes an ad (new_test_4) from the database."
+			},
+			"response": []
+		},
+		{
+			"name": "Get: /ads (Check database is empty)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "416096e6-104b-45b3-9ae3-01f2a7cb5e5e",
+						"exec": [
+							"pm.test(\"Status: Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Test: No ads found error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorCode).to.eql(\"notFound\");",
+							"});",
+							"pm.test(\"Test: Database contains 0 ads error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorMsg).to.eql(\"No ads currently exist in the database.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ads"
+					]
+				},
+				"description": "Checks if database is empty."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "77aa2faa-8e26-4ae0-930d-b88c97fd4ad7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b69dbd69-ba63-4940-b115-b959c3cbf76c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
